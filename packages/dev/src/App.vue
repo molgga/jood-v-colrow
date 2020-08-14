@@ -1,7 +1,5 @@
 <template>
   <v-app id="app">
-    <jd-modal-provider />
-
     <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app>
       <v-list dense>
         <v-list-group value="true">
@@ -66,7 +64,6 @@
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
 import { exampleLinks } from '@/components/example';
-// import { provideJdModalService, useJdModalService, JdModalProvider } from '@/lib-package';
 
 export default defineComponent({
   setup() {

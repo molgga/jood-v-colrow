@@ -1,5 +1,4 @@
-// import JdModalProvider from './modal/JdModalProvider.vue';
-// import JdModalEntry from './modal/JdModalEntry.vue';
-// export { JdModalProvider, JdModalEntry };
+import JdColrowProvider from './JdColrowProvider.vue';
+import JdColrowRow from './JdColrowRow.vue';
 
-export default {};
+export { JdColrowProvider, JdColrowRow };
