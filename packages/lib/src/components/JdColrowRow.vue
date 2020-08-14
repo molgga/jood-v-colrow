@@ -29,7 +29,8 @@ export default defineComponent({
   props: {
     groupKey: {
       type: String,
-      default: ''
+      default: '',
+      required: true
     }
   },
   setup(props) {

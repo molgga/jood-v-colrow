@@ -1,13 +1,13 @@
 export const ExampleList = [
   {
-    key: 'temp',
-    label: 'temp',
-    component: () => import('@/components/example/example-temp/ExampleApp.vue'),
-  },
+    key: 'sample1',
+    label: 'sample1',
+    component: () => import('@/components/example/example-sample1/ExampleApp.vue')
+  }
 ];
 export const ExampleApps = (() => {
   const hash: any = {};
-  ExampleList.forEach((example) => {
+  ExampleList.forEach(example => {
     hash[example.key] = example;
   });
   return hash;
