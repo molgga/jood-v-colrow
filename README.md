@@ -1,10 +1,6 @@
 # @jood/v-colrow
 
-Vue row column ...
-
-### polyfill
-
-- [resize-observer-polyfill](https://www.npmjs.com/package/resize-observer-polyfill)
+Vue synchronous row UI
 
 *** 
 

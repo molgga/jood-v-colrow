@@ -1,5 +1,15 @@
 <template>
   <v-container>
+    <v-card>
+      <v-card-title>sample demo</v-card-title>
+      <v-card-text>
+        <v-btn color="primary" @click="onTestAdd">add</v-btn> |
+        <v-btn color="primary" @click="onTestRemove">remove</v-btn>
+      </v-card-text>
+    </v-card>
+
+    <hr class="partition" />
+
     <jd-colrow-provider class="test-container">
       <my-item v-for="(data, index) in testState.list" :key="index" :myModel="data" />
     </jd-colrow-provider>
@@ -62,8 +72,17 @@ export default defineComponent({
     const testState = reactive({
       list: [createTestData(), createTestData(), createTestData(), createTestData()]
     });
+
+    const onTestAdd = () => {
+      testState.list.push(createTestData());
+    };
+    const onTestRemove = () => {
+      testState.list.pop();
+    };
     return {
-      testState
+      testState,
+      onTestAdd,
+      onTestRemove
     };
   }
 });
