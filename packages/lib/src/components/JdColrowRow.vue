@@ -1,7 +1,7 @@
 <template>
   <div class="jd-colrow-row" ref="elSize" :style="elSizeStyle">
     <div class="colrow-entry" ref="elEntry" :[elEntryDataKey]="groupKey">
-      <slot></slot>
+      <slot :state="state"></slot>
     </div>
   </div>
 </template>
@@ -52,7 +52,6 @@ export default defineComponent({
         return {};
       }
     });
-
     const onChangeGroupState = (groupState: GroupState) => {
       state.expectHeight = groupState.expectHeight;
     };
@@ -67,6 +66,7 @@ export default defineComponent({
       listener.unsubscribe();
     });
     return {
+      state,
       elSize,
       elSizeStyle,
       elEntry,

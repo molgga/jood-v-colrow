@@ -5,29 +5,44 @@
     </div>
     <div class="my-panel">
       <jd-colrow-row groupKey="my-group-title" class="my-row">
-        <dl class="my-dl">
-          <dt class="my-dt">Title</dt>
-          <dd class="my-dd">{{ myModel.title }}</dd>
-        </dl>
+        <template v-slot="state">
+          <div class="my-test-state">
+            {{ state }}
+          </div>
+          <dl class="my-dl">
+            <dt class="my-dt">Title</dt>
+            <dd class="my-dd">{{ myModel.title }}</dd>
+          </dl>
+        </template>
       </jd-colrow-row>
       <jd-colrow-row groupKey="my-group-tags" class="my-row">
-        <div class="my-chips">
-          <v-chip v-for="(tag, index) in myModel.tags" :key="index" class="chip" label small>
-            {{ tag }}
-          </v-chip>
-        </div>
+        <template v-slot="state">
+          <div class="my-test-state">
+            {{ state }}
+          </div>
+          <div class="my-chips">
+            <v-chip v-for="(tag, index) in myModel.tags" :key="index" class="chip" label small>
+              {{ tag }}
+            </v-chip>
+          </div>
+        </template>
       </jd-colrow-row>
       <jd-colrow-row groupKey="my-group-description" class="my-row">
-        <v-expansion-panels>
-          <v-expansion-panel>
-            <v-expansion-panel-header>row resize</v-expansion-panel-header>
-            <v-expansion-panel-content>
-              {{ myModel.description }}
-              {{ myModel.description }}
-              {{ myModel.description }}
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
+        <template v-slot="state">
+          <div class="my-test-state">
+            {{ state }}
+          </div>
+          <v-expansion-panels>
+            <v-expansion-panel>
+              <v-expansion-panel-header>row resize</v-expansion-panel-header>
+              <v-expansion-panel-content>
+                {{ myModel.description }}
+                {{ myModel.description }}
+                {{ myModel.description }}
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
+        </template>
       </jd-colrow-row>
     </div>
   </div>
@@ -91,6 +106,10 @@ export default defineComponent({
     .chip {
       margin: 2px;
     }
+  }
+  .my-test-state {
+    padding: 3px 0;
+    font-size: 13px;
   }
 }
 </style>
