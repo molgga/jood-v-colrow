@@ -31,14 +31,18 @@ export default defineComponent({
       type: String,
       default: '',
       required: true
+    },
+    lazyAggregate: {
+      type: Number,
+      default: 15
     }
   },
   setup(props) {
+    const colrowObserver = inject<JdColrowObserver>(JD_COLROW_OBSERVER_TOKEN);
     const elEntryDataKey = `data-${GroupDatasetKey}`;
     const elSize = ref(null);
     const elEntry = ref(null);
     const listener = new Subscription();
-    const colrowObserver = inject<JdColrowObserver>(JD_COLROW_OBSERVER_TOKEN);
     let colrowGroup: JdColrowGroup;
 
     const state = reactive({
@@ -57,7 +61,9 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      colrowGroup = colrowObserver.joinGroup(props.groupKey, elEntry.value);
+      colrowGroup = colrowObserver.joinGroup(props.groupKey, elEntry.value, {
+        lazyAggregate: props.lazyAggregate
+      });
       const observeState = colrowGroup.observeState().subscribe(onChangeGroupState);
       listener.add(observeState);
     });

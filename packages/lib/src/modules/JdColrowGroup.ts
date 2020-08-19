@@ -1,11 +1,12 @@
 import { Subject, Observable } from 'rxjs';
-import { RowElement, RowKey, GroupState } from './types';
+import { RowElement, RowKey, GroupState, GroupOptions } from './types';
 
 export class JdColrowGroup {
   protected key!: RowKey;
   protected tick: any = null;
   protected stateSubject = new Subject<GroupState>();
   protected elList: RowElement[] = [];
+  protected lazyAggregate = 0;
 
   get groupKey() {
     return this.key;
@@ -24,19 +25,31 @@ export class JdColrowGroup {
     this.key = key;
   }
 
+  assignOptions(option: GroupOptions = {}) {
+    const { lazyAggregate = 0 } = option;
+    this.setLazyAggregate(lazyAggregate);
+  }
+
+  setLazyAggregate(delay: number) {
+    this.lazyAggregate = delay;
+  }
+
   aggregate(): void {
-    cancelAnimationFrame(this.tick);
-    requestAnimationFrame(() => {
-      this.aggregateExecute();
-    });
-    // clearTimeout(this.tick);
-    // this.tick = setTimeout(() => {
-    //   this.aggregateExecute();
-    // }, 10);
+    if (0 < this.lazyAggregate) {
+      clearTimeout(this.tick);
+      this.tick = setTimeout(() => {
+        this.aggregateExecute();
+      }, this.lazyAggregate);
+    } else {
+      cancelAnimationFrame(this.tick);
+      this.tick = requestAnimationFrame(() => {
+        this.aggregateExecute();
+      });
+    }
   }
 
   aggregateExecute(): void {
-    let max: number = 0;
+    let max = 0;
     this.elList.forEach(el => {
       max = Math.max(max, el.offsetHeight);
     });

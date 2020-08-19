@@ -7,3 +7,7 @@ export const GroupDatasetKey = 'jdcolrowgroupkey';
 export interface GroupState {
   expectHeight: number;
 }
+
+export interface GroupOptions {
+  lazyAggregate?: number;
+}
