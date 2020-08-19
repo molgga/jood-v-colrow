@@ -1,18 +1,27 @@
 <template>
-  <div class="jd-colrow-provider">
+  <div class="jd-colrow-provider" ref="elContainer">
     <slot></slot>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, provide } from '@vue/composition-api';
+import { defineComponent, provide, ref, onMounted, onUnmounted } from '@vue/composition-api';
 import { JdColrowObserver, JD_COLROW_OBSERVER_TOKEN } from '../modules';
 
 export default defineComponent({
   setup() {
+    const elContainer = ref<HTMLElement>(null);
     const colrowObserver = new JdColrowObserver();
     provide(JD_COLROW_OBSERVER_TOKEN, colrowObserver);
-    return {};
+    onMounted(() => {
+      colrowObserver.attachContainer(elContainer.value);
+    });
+    onUnmounted(() => {
+      colrowObserver.destroy();
+    });
+    return {
+      elContainer
+    };
   }
 });
 </script>

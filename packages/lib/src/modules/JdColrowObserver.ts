@@ -5,9 +5,13 @@ import { JdColrowGroup } from './JdColrowGroup';
 export class JdColrowObserver {
   protected groupMap!: Map<RowKey, JdColrowGroup>;
   protected resizeObserver!: ResizeObserver;
+  protected mutationObserver!: MutationObserver;
+  protected elContainer!: HTMLElement;
+
   constructor() {
     this.groupMap = new Map();
     this.resizeObserver = new ResizeObserver(this.onResizeObserved.bind(this));
+    this.mutationObserver = new MutationObserver(this.onMutationObserved.bind(this));
   }
 
   groupOf(key: RowKey): JdColrowGroup | undefined {
@@ -37,6 +41,14 @@ export class JdColrowObserver {
     }
   }
 
+  attachContainer(el: HTMLElement) {
+    if (this.elContainer) {
+      this.mutationObserver.disconnect();
+    }
+    this.mutationObserver.observe(el, { attributes: true, childList: true, characterData: true });
+    this.elContainer = el;
+  }
+
   onResizeObserved(entries: ResizeObserverEntry[]) {
     const keys: string[] = [];
     for (const entry of entries) {
@@ -46,6 +58,11 @@ export class JdColrowObserver {
         keys.push(key);
       }
     }
+    keys.forEach(key => this.aggregateRow(key));
+  }
+
+  onMutationObserved(records: MutationRecord[]) {
+    const keys = Array.from(this.groupMap.keys());
     keys.forEach(key => this.aggregateRow(key));
   }
 
@@ -69,6 +86,9 @@ export class JdColrowObserver {
       Array.from(this.groupMap.keys()).forEach(key => {
         this.destroyGroup(key);
       });
+      if (this.mutationObserver) {
+        this.mutationObserver.disconnect();
+      }
       if (this.resizeObserver) {
         this.resizeObserver.disconnect();
       }
