@@ -24,6 +24,7 @@
     "vue": ">=2.6.11"
   },
   "dependencies": {
+    "intersection-observer": ">=0.11.0",
     "resize-observer-polyfill": ">=1.5.1",
     "rxjs": ">=6.5.5"
   },
