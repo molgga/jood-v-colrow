@@ -9,7 +9,7 @@ export class JdColrowObserver {
   protected mutationObserver!: MutationObserver;
   protected intersectObserver!: IntersectionObserver;
   protected elContainer!: HTMLElement;
-  protected resizeWaitKeys: RowKey[] = [];
+  protected aggregateWaitKeys: RowKey[] = [];
   protected isIntersectInitial = false;
   protected isIntersecting = true;
 
@@ -64,15 +64,18 @@ export class JdColrowObserver {
         keys.push(key);
       }
     }
-    this.resizeWaitKeys = keys;
+    this.aggregateWaitKeys = keys;
     if (this.isIntersectInitial && this.isIntersecting) {
-      this.flushResizeWait();
+      this.flushAggregateWait();
     }
   }
 
   onMutationObserved(records: MutationRecord[]) {
     const keys = Array.from(this.groupMap.keys());
-    keys.forEach(key => this.aggregateRow(key));
+    this.aggregateWaitKeys = keys;
+    if (this.isIntersectInitial && this.isIntersecting) {
+      this.flushAggregateWait();
+    }
   }
 
   onIntersectObserved(entries: IntersectionObserverEntry[]) {
@@ -80,7 +83,7 @@ export class JdColrowObserver {
     this.isIntersecting = !!isIntersecting;
     this.isIntersectInitial = true;
     if (this.isIntersecting) {
-      this.flushResizeWait();
+      this.flushAggregateWait();
     }
   }
 
@@ -91,9 +94,10 @@ export class JdColrowObserver {
     }
   }
 
-  protected flushResizeWait() {
-    if (this.resizeWaitKeys && this.resizeWaitKeys.length) {
-      this.resizeWaitKeys = [];
+  protected flushAggregateWait() {
+    if (this.aggregateWaitKeys && this.aggregateWaitKeys.length) {
+      this.aggregateWaitKeys.forEach(key => this.aggregateRow(key));
+      this.aggregateWaitKeys = [];
     }
   }
 
