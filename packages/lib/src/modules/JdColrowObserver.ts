@@ -79,7 +79,11 @@ export class JdColrowObserver {
   }
 
   onIntersectObserved(entries: IntersectionObserverEntry[]) {
-    const { isIntersecting = false } = entries[0] || {};
+    const safeEntries = entries || [];
+    const lastEntry = safeEntries.length
+      ? safeEntries[safeEntries.length - 1]
+      : { isIntersecting: false };
+    const { isIntersecting } = lastEntry;
     this.isIntersecting = !!isIntersecting;
     this.isIntersectInitial = true;
     if (this.isIntersecting) {
