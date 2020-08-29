@@ -6,9 +6,7 @@
     <div class="my-panel">
       <jd-colrow-row groupKey="my-group-title" class="my-row">
         <template v-slot="state">
-          <div class="my-test-state">
-            {{ state }}
-          </div>
+          <div class="my-test-state">{{ state }}</div>
           <dl class="my-dl">
             <dt class="my-dt">Title</dt>
             <dd class="my-dd">{{ myModel.title }}</dd>
@@ -17,21 +15,21 @@
       </jd-colrow-row>
       <jd-colrow-row groupKey="my-group-tags" class="my-row">
         <template v-slot="state">
-          <div class="my-test-state">
-            {{ state }}
-          </div>
+          <div class="my-test-state">{{ state }}</div>
           <div class="my-chips">
-            <v-chip v-for="(tag, index) in myModel.tags" :key="index" class="chip" label small>
-              {{ tag }}
-            </v-chip>
+            <v-chip
+              v-for="(tag, index) in myModel.tags"
+              :key="index"
+              class="chip"
+              label
+              small
+            >{{ tag }}</v-chip>
           </div>
         </template>
       </jd-colrow-row>
       <jd-colrow-row groupKey="my-group-description" class="my-row">
         <template v-slot="state">
-          <div class="my-test-state">
-            {{ state }}
-          </div>
+          <div class="my-test-state">{{ state }}</div>
           <v-expansion-panels>
             <v-expansion-panel>
               <v-expansion-panel-header>row resize</v-expansion-panel-header>
@@ -50,7 +48,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
-import { JdColrowRow } from '@/lib-package';
+import { JdColrowRow } from '@jood/v-colrow';
 
 export default defineComponent({
   components: {

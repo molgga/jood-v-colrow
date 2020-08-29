@@ -3,7 +3,7 @@
     <v-card>
       <v-card-title>sample demo</v-card-title>
       <v-card-text>
-        <v-btn color="primary" @click="onTestAdd">add</v-btn> |
+        <v-btn color="primary" @click="onTestAdd">add</v-btn>|
         <v-btn color="primary" @click="onTestRemove">remove</v-btn>
       </v-card-text>
     </v-card>
@@ -19,7 +19,7 @@
 <script lang="ts">
 import { Subscription } from 'rxjs';
 import { defineComponent, reactive, onMounted, onUnmounted } from '@vue/composition-api';
-import { JdColrowProvider } from '@/lib-package';
+import { JdColrowProvider } from '@jood/v-colrow';
 import MyItem from './MyItem.vue';
 
 const TEST_STRING_1 = [

@@ -7,16 +7,22 @@ Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
-    path: '/example/:example',
-    name: 'Example',
+    path: '/',
+    name: 'GettingStarted',
     props: true,
-    component: () => import(/* webpackChunkName: "example" */ '../views/Example.vue')
+    component: () => import(/* webpackChunkName: "GettingStarted" */ '../views/GettingStarted.vue')
+  },
+  {
+    path: '/demo/:demo',
+    name: 'DemoView',
+    props: true,
+    component: () => import(/* webpackChunkName: "demo" */ '../views/DemoView.vue')
   },
   {
     path: '*',
-    name: 'ExampleNotFound',
+    name: 'GettingStarted',
     props: true,
-    component: () => import(/* webpackChunkName: "exampleNotFound" */ '../views/Example.vue')
+    component: () => import(/* webpackChunkName: "GettingStarted" */ '../views/GettingStarted.vue')
   }
 ];
 
