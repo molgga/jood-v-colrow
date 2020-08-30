@@ -4,7 +4,7 @@
       <strong>my-component</strong>
     </div>
     <div class="my-panel">
-      <jd-colrow-row groupKey="my-group-title" class="my-row">
+      <jd-colrow-row groupKey="my-group-title" :lazyAggregate="0" class="my-row">
         <template v-slot="state">
           <div class="my-test-state">{{ state }}</div>
           <dl class="my-dl">
@@ -13,7 +13,7 @@
           </dl>
         </template>
       </jd-colrow-row>
-      <jd-colrow-row groupKey="my-group-tags" class="my-row">
+      <jd-colrow-row groupKey="my-group-tags" :lazyAggregate="0" class="my-row">
         <template v-slot="state">
           <div class="my-test-state">{{ state }}</div>
           <div class="my-chips">
@@ -27,7 +27,7 @@
           </div>
         </template>
       </jd-colrow-row>
-      <jd-colrow-row groupKey="my-group-description" class="my-row">
+      <jd-colrow-row groupKey="my-group-description" :lazyAggregate="0" class="my-row">
         <template v-slot="state">
           <div class="my-test-state">{{ state }}</div>
           <v-expansion-panels>

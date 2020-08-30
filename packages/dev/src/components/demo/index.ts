@@ -3,6 +3,11 @@ export const DemoList = [
     key: 'sample1',
     label: 'sample1',
     component: () => import('@/components/demo/demo-sample1/DemoApp.vue')
+  },
+  {
+    key: 'sample2',
+    label: 'sample2',
+    component: () => import('@/components/demo/demo-sample2/DemoApp.vue')
   }
 ];
 export const DemoApps = (() => {
