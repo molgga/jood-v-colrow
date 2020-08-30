@@ -1,104 +1,97 @@
 <template>
-  <v-container>
-    <v-card>
-      <v-card-title>sample demo</v-card-title>
-      <v-card-text>
-        <v-btn color="primary" @click="onTestAdd">add</v-btn>|
-        <v-btn color="primary" @click="onTestRemove">remove</v-btn>
-      </v-card-text>
-    </v-card>
-
-    <hr class="partition" />
-
-    <jd-colrow-provider class="test-container">
-      <my-item v-for="(data, index) in testState.list" :key="index" :myModel="data" />
+  <div>
+    <jd-colrow-provider class="my-table">
+      <div v-for="(item, index) in testState.list" :key="index" class="my-item">
+        <jd-colrow-row v-for="(value, key) in item" :key="key" :groupKey="key" class="my-row">
+          <template v-slot="{ state }">
+            <div class="test-state">{{ state }}</div>
+            <div class="test-value">{{ value }}</div>
+          </template>
+        </jd-colrow-row>
+      </div>
     </jd-colrow-provider>
-  </v-container>
+  </div>
 </template>
 
 <script lang="ts">
-import { Subscription } from 'rxjs';
-import { defineComponent, reactive, onMounted, onUnmounted } from '@vue/composition-api';
-import { JdColrowProvider } from '@jood/v-colrow';
-import MyItem from './MyItem.vue';
-
-const TEST_STRING_1 = [
-  'javascript',
-  'css',
-  'html',
-  'typescript',
-  'scss',
-  'vue',
-  'react',
-  'angular'
-];
-const TEST_STRING_2 = [
-  'JavaScript(JS)는 가벼운 인터프리터 또는 JIT 컴파일 프로그래밍 언어로, 일급 함수를 지원합니다.',
-  '웹 페이지의 스크립트 언어로서 제일 유명하지만 Node.js, Apache CouchDB, Adobe Acrobat처럼 많은 비 브라우저 환경에서도 사용하고 있습니다.',
-  'JavaScript는 프로토타입 기반의 동적 다중 패러다임 스크립트 언어로, 객체지향형, 명령형, 선언형(함수형 프로그래밍 등) 스타일을 지원합니다.',
-  'JavaScript의 표준은 ECMAScript입니다.',
-  ' 2012년 기준 최신 브라우저는 모두 ECMAScript 5.1을 온전히 지원합니다.'
-];
-
-const createTestString = (arr: string[]) => {
-  const index = Math.round(Math.random() * (arr.length - 1));
-  return arr[index];
-};
-
-const createTestStringList = (arr: string[]) => {
-  const len = Math.round(Math.random() * 10);
-  const list = [];
-  for (let i = 0; i < len; i++) {
-    list.push(createTestString(arr));
-  }
-  return list;
-};
-
-const createTestData = () => {
-  return {
-    id: Math.round(Math.random() * 999999),
-    title: createTestString(TEST_STRING_1),
-    description: createTestString(TEST_STRING_2),
-    tags: createTestStringList(TEST_STRING_1)
-  };
-};
+import { defineComponent, reactive, onUnmounted } from '@vue/composition-api';
+import { JdColrowProvider, JdColrowRow } from '@jood/v-colrow';
 
 export default defineComponent({
   components: {
     JdColrowProvider,
-    MyItem
+    JdColrowRow
   },
   setup() {
-    const testState = reactive({
-      list: [createTestData(), createTestData(), createTestData(), createTestData()]
+    const testMax = 3;
+    const testState = reactive<any>({
+      list: []
     });
-
-    const onTestAdd = () => {
-      testState.list.push(createTestData());
+    const getTestRandomText = () => {
+      const date = new Date();
+      const len = Math.round(Math.random() * 10 + 1);
+      const text = [];
+      for (let i = 0; i < len; i++) {
+        text.push(Math.ceil(Math.random() * 99999999).toString());
+        text.push(Math.ceil(Math.random() * 99999999).toString());
+        text.push(Math.ceil(Math.random() * 99999999).toString());
+        text.push(Math.ceil(Math.random() * 99999999).toString());
+        text.push(Math.ceil(Math.random() * 99999999).toString());
+      }
+      return text.join('');
     };
-    const onTestRemove = () => {
-      testState.list.pop();
+    const onChangeState = () => {
+      testState.list = [];
+      for (let i = 0; i < testMax; i++) {
+        testState.list.push({
+          key1: getTestRandomText(),
+          key2: getTestRandomText(),
+          key3: getTestRandomText()
+        });
+      }
     };
+    const testInterval = setInterval(() => {
+      onChangeState();
+    }, 1000);
+    onUnmounted(() => {
+      clearInterval(testInterval);
+    });
     return {
-      testState,
-      onTestAdd,
-      onTestRemove
+      testState
     };
   }
 });
 </script>
 
 <style lang="scss" scoped>
-.partition {
-  display: block;
-  margin: 0;
-  padding: 20px 0;
-  border: none;
-}
-.test-container {
+.my-table {
   display: flex;
-  flex-wrap: nowrap;
-  overflow-x: scroll;
-  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: 90%;
+  border: 1px solid #ff0000;
+  border-radius: 5px;
+}
+.my-item {
+  flex: 1;
+  border-left: 1px dashed #ff0000;
+  &:first-child {
+    border-left-width: 0;
+  }
+  .my-row {
+    word-break: break-all;
+    border-top: 1px solid #ff0000;
+    transition: height 200ms;
+    overflow: hidden;
+    &:first-child {
+      border-top-width: 0;
+    }
+  }
+  .test-state {
+    padding: 10px;
+  }
+  .test-value {
+    padding: 10px;
+    color: #999999;
+  }
 }
 </style>
