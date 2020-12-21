@@ -70,8 +70,11 @@
     "javascript",
     "typescript",
     "vue",
-    "modal",
-    "confirm",
-    "actionsheet"
+    "vue3",
+    "vue3.0",
+    "composition-api",
+    "table",
+    "column",
+    "row"
   ]
 }
