@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, onUnmounted } from '@vue/composition-api';
+import { defineComponent, reactive, onUnmounted } from 'vue';
 import { JdColrowProvider, JdColrowRow } from '@jood/v-colrow';
 
 export default defineComponent({

@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { Subscription } from 'rxjs';
-import { defineComponent, reactive, onMounted, onUnmounted } from '@vue/composition-api';
+import { defineComponent, reactive, onMounted, onUnmounted } from 'vue';
 import { JdColrowProvider } from '@jood/v-colrow';
 import MyItem from './MyItem.vue';
 

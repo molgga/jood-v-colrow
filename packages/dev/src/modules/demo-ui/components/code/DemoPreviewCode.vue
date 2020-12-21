@@ -1,29 +1,26 @@
 <template>
-  <div class="preview-code">
+  <div class="demo-preview-code">
     <template v-if="viewState.hasHead">
       <div class="code-head">
         <h3 class="tit">{{ viewState.title }}</h3>
         <div class="desc">{{ viewState.description }}</div>
       </div>
     </template>
-    <vue-code-highlight class="panel-viewer" :language="viewState.language">
-      <slot>{{ viewState.code }}</slot>
-    </vue-code-highlight>
+    <div ref="refContainer" class="panel-viewer">
+      <pre :class="viewState.language"><code><slot>{{ viewState.code }}</slot></code></pre>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from '@vue/composition-api';
-import 'prismjs';
+import { defineComponent, computed, shallowRef, onMounted } from 'vue';
+// @ts-ignore
+import Prismjs from 'prismjs';
 import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-bash';
-// @ts-ignore
-import { component as VueCodeHighlight } from 'vue-code-highlight';
 
 export default defineComponent({
-  components: {
-    VueCodeHighlight
-  },
+  name: 'DemoPreviewCode',
   props: {
     title: {
       type: String,
@@ -43,6 +40,7 @@ export default defineComponent({
     }
   },
   setup(props) {
+    const refContainer = shallowRef(null);
     const viewState = computed(() => {
       const { title, description, lang = '', code = '' } = props;
       const hasHead = title || description;
@@ -50,11 +48,16 @@ export default defineComponent({
         hasHead,
         title,
         description,
-        language: lang,
+        language: `language-${lang}`,
         code: code.trim()
       };
     });
+    onMounted(() => {
+      // Prismjs.highlightElement(refContainer.value);
+      Prismjs.highlightAllUnder(refContainer.value);
+    });
     return {
+      refContainer,
       viewState
     };
   }
@@ -62,7 +65,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.preview-code {
+.demo-preview-code {
   .panel-head {
     .tit {
       font-size: 18px;
@@ -75,12 +78,12 @@ export default defineComponent({
     }
   }
   .panel-viewer {
-    ::v-deep > pre {
+    ::v-deep(pre) {
       display: block;
       box-shadow: none;
       border-radius: 5px;
     }
-    ::v-deep > pre > code {
+    ::v-deep(pre > code) {
       display: block;
       padding: 7px 10px;
       font-weight: normal;

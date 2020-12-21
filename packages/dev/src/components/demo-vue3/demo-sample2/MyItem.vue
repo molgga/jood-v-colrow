@@ -17,13 +17,9 @@
         <template v-slot="state">
           <div class="my-test-state">{{ state }}</div>
           <div class="my-chips">
-            <v-chip
-              v-for="(tag, index) in myModel.tags"
-              :key="index"
-              class="chip"
-              label
-              small
-            >{{ tag }}</v-chip>
+            <v-chip v-for="(tag, index) in myModel.tags" :key="index" class="chip" label small>{{
+              tag
+            }}</v-chip>
           </div>
         </template>
       </jd-colrow-row>
@@ -47,7 +43,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 import { JdColrowRow } from '@jood/v-colrow';
 
 export default defineComponent({

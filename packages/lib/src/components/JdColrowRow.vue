@@ -8,15 +8,7 @@
 
 <script lang="ts">
 import { Subscription } from 'rxjs';
-import {
-  defineComponent,
-  reactive,
-  computed,
-  ref,
-  inject,
-  onMounted,
-  onUnmounted
-} from '@vue/composition-api';
+import { defineComponent, reactive, computed, ref, inject, onMounted, onUnmounted } from 'vue';
 import {
   JD_COLROW_OBSERVER_TOKEN,
   JdColrowObserver,

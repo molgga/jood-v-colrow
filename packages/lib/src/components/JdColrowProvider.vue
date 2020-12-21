@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, provide, ref, onMounted, onUnmounted } from '@vue/composition-api';
+import { defineComponent, provide, ref, onMounted, onUnmounted } from 'vue';
 import { JdColrowObserver, JD_COLROW_OBSERVER_TOKEN } from '../modules';
 
 export default defineComponent({
@@ -26,5 +26,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
