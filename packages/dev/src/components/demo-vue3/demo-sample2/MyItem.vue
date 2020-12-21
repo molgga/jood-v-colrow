@@ -17,29 +17,26 @@
         <template v-slot="state">
           <div class="my-test-state">{{ state }}</div>
           <div class="my-chips">
-            <v-chip
-              v-for="(tag, index) in myModel.tags"
-              :key="index"
-              class="chip"
-              label
-              small
-            >{{ tag }}</v-chip>
+            <span v-for="(tag, index) in myModel.tags" :key="index" class="chip" label small>
+              {{ tag }}
+            </span>
           </div>
         </template>
       </jd-colrow-row>
       <jd-colrow-row groupKey="my-group-description" :lazyAggregate="0" class="my-row">
         <template v-slot="state">
           <div class="my-test-state">{{ state }}</div>
-          <v-expansion-panels>
-            <v-expansion-panel>
-              <v-expansion-panel-header>row resize</v-expansion-panel-header>
-              <v-expansion-panel-content>
-                {{ myModel.description }}
-                {{ myModel.description }}
-                {{ myModel.description }}
-              </v-expansion-panel-content>
-            </v-expansion-panel>
-          </v-expansion-panels>
+          <div class="my-test-resize">
+            <div class="resize-head">
+              <demo-button @click="onTestToggleContent">toogle content</demo-button>
+            </div>
+            <div class="resize-content" :style="styleContent">
+              {{ myModel.description }}
+              {{ myModel.description }}
+              {{ myModel.description }}
+              {{ myModel.description }}
+            </div>
+          </div>
         </template>
       </jd-colrow-row>
     </div>
@@ -47,7 +44,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { computed, defineComponent, reactive } from 'vue';
 import { JdColrowRow } from '@jood/v-colrow';
 
 export default defineComponent({
@@ -61,7 +58,21 @@ export default defineComponent({
     }
   },
   setup(props) {
-    return {};
+    const viewState = reactive({
+      isTestContentShow: false
+    });
+    const styleContent = computed(() => {
+      return {
+        display: viewState.isTestContentShow ? 'block' : 'none'
+      };
+    });
+    const onTestToggleContent = (evt: Event) => {
+      viewState.isTestContentShow = !viewState.isTestContentShow;
+    };
+    return {
+      styleContent,
+      onTestToggleContent
+    };
   }
 });
 </script>
@@ -101,13 +112,27 @@ export default defineComponent({
 
   .my-chips {
     margin: 0 -2px;
+    font-size: 12px;
     .chip {
+      display: inline-block;
       margin: 2px;
+      padding: 3px 12px;
+      border-radius: 12px;
+      box-sizing: border-box;
+      background-color: #f0f0f0;
     }
   }
   .my-test-state {
     padding: 3px 0;
     font-size: 13px;
+  }
+  .my-test-resize {
+    .resize-head {
+      display: block;
+    }
+    .resize-content {
+      display: none;
+    }
   }
 }
 </style>

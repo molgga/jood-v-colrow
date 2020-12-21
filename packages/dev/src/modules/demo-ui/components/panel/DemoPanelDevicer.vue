@@ -1,10 +1,11 @@
 <template>
-  <div class="panel-devider" :class="classes"></div>
+  <div class="demo-panel-devider" :class="classes"></div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from '@vue/composition-api';
+import { defineComponent, computed } from 'vue';
 export default defineComponent({
+  name: 'DemoPanelDevider',
   props: {
     half: {
       type: Boolean,
@@ -31,7 +32,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.panel-devider {
+.demo-panel-devider {
   margin: 0 10px;
   padding: 30px 0;
   &.line {

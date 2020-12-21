@@ -4,8 +4,9 @@
       <div v-for="(item, index) in testState.list" :key="index" class="my-item">
         <jd-colrow-row v-for="(value, key) in item" :key="key" :groupKey="key" class="my-row">
           <template v-slot="{ state }">
+            <div class="test-state">groupKey: {{ key }}</div>
             <div class="test-state">{{ state }}</div>
-            <div class="test-value">{{ value }}</div>
+            <div class="test-value">random text(hight change)<br />{{ value }}</div>
           </template>
         </jd-colrow-row>
       </div>
@@ -14,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, onUnmounted } from '@vue/composition-api';
+import { defineComponent, reactive, onUnmounted, onBeforeMount } from 'vue';
 import { JdColrowProvider, JdColrowRow } from '@jood/v-colrow';
 
 export default defineComponent({
@@ -53,6 +54,11 @@ export default defineComponent({
     const testInterval = setInterval(() => {
       onChangeState();
     }, 1000);
+
+    onBeforeMount(() => {
+      onChangeState();
+    });
+
     onUnmounted(() => {
       clearInterval(testInterval);
     });
@@ -68,18 +74,15 @@ export default defineComponent({
   display: flex;
   margin: 0 auto;
   max-width: 90%;
-  border: 1px solid #ff0000;
-  border-radius: 5px;
 }
 .my-item {
   flex: 1;
-  border-left: 1px dashed #ff0000;
-  &:first-child {
-    border-left-width: 0;
-  }
+  margin: 0 2px;
+  border: 1px solid #000000;
+  border-radius: 5px;
   .my-row {
     word-break: break-all;
-    border-top: 1px solid #ff0000;
+    border-top: 1px dashed #999999;
     transition: height 200ms;
     overflow: hidden;
     &:first-child {
@@ -87,10 +90,10 @@ export default defineComponent({
     }
   }
   .test-state {
-    padding: 10px;
+    padding: 5px 10px;
   }
   .test-value {
-    padding: 10px;
+    padding: 5px 10px;
     color: #999999;
   }
 }

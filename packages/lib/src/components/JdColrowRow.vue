@@ -12,11 +12,11 @@ import {
   defineComponent,
   reactive,
   computed,
-  ref,
   inject,
   onMounted,
-  onUnmounted
-} from '@vue/composition-api';
+  onUnmounted,
+  shallowRef
+} from 'vue';
 import {
   JD_COLROW_OBSERVER_TOKEN,
   JdColrowObserver,
@@ -40,8 +40,8 @@ export default defineComponent({
   setup(props) {
     const colrowObserver = inject<JdColrowObserver>(JD_COLROW_OBSERVER_TOKEN);
     const elEntryDataKey = `data-${GroupDatasetKey}`;
-    const elSize = ref(null);
-    const elEntry = ref(null);
+    const elSize = shallowRef<HTMLElement>(null);
+    const elEntry = shallowRef<HTMLElement>(null);
     const listener = new Subscription();
     let colrowGroup: JdColrowGroup;
 

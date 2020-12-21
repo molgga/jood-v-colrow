@@ -34,6 +34,7 @@ export class JdColrowObserver {
     }
     if (group.indexElementOf(el) === -1) {
       group.addElement(el);
+      group.assignOptions(options);
       this.resizeObserver.observe(el);
     }
     return group;

@@ -1,50 +1,44 @@
 <template>
   <div class="page-view">
     <div class="panel">
-      <preview-code v-bind="Codes.install" />
+      <demo-preview-code v-bind="Codes.install" />
 
-      <panel-devider />
+      <demo-panel-devider />
 
-      <preview-code v-bind="Codes.simple" />
+      <demo-preview-code v-bind="Codes.simple" />
 
-      <panel-devider :half="true" />
+      <demo-panel-devider :half="true" />
 
       <div class="panel-desc">
         <p class="pg">
           <a
             href="https://www.google.com/search?q=COMPARISON+TABLE&safe=off&rlz=1C5CHFA_enKR901KR901&source=lnms&tbm=isch&sa=X&ved=2ahUKEwji6IblncLrAhW5xosBHTLFAuQQ_AUoAXoECA0QAw&biw=1771&bih=852"
             target="_blank"
-          >comparison table</a> 형식의 테이블 구현시 열(column)을 한 개의 컴포넌트 단위로 만들어내기 위해 제작 되었습니다.
+            >comparison table</a
+          >
+          형식의 테이블 구현시 열(column)을 한 개의 컴포넌트 단위로 만들어내기 위해 제작 되었습니다.
         </p>
         <p class="pg">
-          <em>JdColrowProvider</em>는 한 개의 테이블,
-          <em>JdColrowRow</em>는 한 개의 행이라 생각하면 됩니다.
+          <em>JdColrowProvider</em>는 한 개의 테이블, <em>JdColrowRow</em>는 한 개의 행이라 생각하면
+          됩니다.
         </p>
         <ul class="panel-list">
-          <li>
-            <em>동일한 groupKey</em>를 가진 row의 높이를 맞춥니다.
-          </li>
+          <li><em>동일한 groupKey</em>를 가진 row의 높이를 맞춥니다.</li>
         </ul>
       </div>
 
-      <panel-devider />
+      <demo-panel-devider />
 
-      <preview-code v-bind="Codes.sample" />
+      <demo-preview-code v-bind="Codes.sample" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
-import PreviewCode from '@/components/common/PreviewCode.vue';
-import PanelDevider from '@/components/common/PanelDevider.vue';
+import { defineComponent } from 'vue';
 import Codes from '@/codes/getting-started';
 
 export default defineComponent({
-  components: {
-    PreviewCode,
-    PanelDevider
-  },
   setup() {
     return {
       Codes
