@@ -1,6 +1,12 @@
 # @jood/v-colrow
 
-Vue synchronous row UI
+Vue synchronous row UI \
+Component that can be created by swapping columns and rows
+
+This is a dedicated package for Vue. \
+
+- \>=0.3.x : with Vue3
+- ~~^0.2.x : with @vue/composition-api~~
 
 *** 
 
