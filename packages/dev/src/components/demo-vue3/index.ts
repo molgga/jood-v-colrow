@@ -1,13 +1,15 @@
+import { defineAsyncComponent } from 'vue';
+
 export const DemoList = [
   {
     key: 'sample1',
     label: 'Sample1',
-    component: () => import('@/components/demo-vue3/demo-sample1/DemoApp.vue')
+    component: defineAsyncComponent(() => import('@/components/demo-vue3/demo-sample1/DemoApp.vue'))
   },
   {
     key: 'sample2',
     label: 'Sample2',
-    component: () => import('@/components/demo-vue3/demo-sample2/DemoApp.vue')
+    component: defineAsyncComponent(() => import('@/components/demo-vue3/demo-sample2/DemoApp.vue'))
   }
 ];
 export const DemoApps = (() => {

@@ -1,18 +1,17 @@
 <template>
-  <v-container>
-    <v-card>
-      <v-card-text>
-        <v-btn color="primary" @click="onTestAdd">add</v-btn>|
-        <v-btn color="primary" @click="onTestRemove">remove</v-btn>
-      </v-card-text>
-    </v-card>
+  <div>
+    <demo-panel>
+      <demo-button color="primary" @click="onTestAdd">add</demo-button>
+      |
+      <demo-button color="primary" @click="onTestRemove">remove</demo-button>
+    </demo-panel>
 
-    <hr class="partition" />
+    <demo-panel-devider />
 
     <jd-colrow-provider class="test-container">
       <my-item v-for="(data, index) in testState.list" :key="index" :myModel="data" />
     </jd-colrow-provider>
-  </v-container>
+  </div>
 </template>
 
 <script lang="ts">
@@ -76,7 +75,9 @@ export default defineComponent({
       testState.list.push(createTestData());
     };
     const onTestRemove = () => {
-      testState.list.pop();
+      if (1 < testState.list.length) {
+        testState.list.pop();
+      }
     };
     return {
       testState,
@@ -88,12 +89,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.partition {
-  display: block;
-  margin: 0;
-  padding: 20px 0;
-  border: none;
-}
 .test-container {
   display: flex;
   flex-wrap: nowrap;

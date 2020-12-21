@@ -5,12 +5,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, provide, ref, onMounted, onUnmounted } from 'vue';
+import { provide, onMounted, onUnmounted, shallowRef } from 'vue';
 import { JdColrowObserver, JD_COLROW_OBSERVER_TOKEN } from '../modules';
 
-export default defineComponent({
+export default {
   setup() {
-    const elContainer = ref<HTMLElement>(null);
+    const elContainer = shallowRef<HTMLElement>(null);
     const colrowObserver = new JdColrowObserver();
     provide(JD_COLROW_OBSERVER_TOKEN, colrowObserver);
     onMounted(() => {
@@ -23,7 +23,7 @@ export default defineComponent({
       elContainer
     };
   }
-});
+};
 </script>
 
 <style lang="scss" scoped></style>
