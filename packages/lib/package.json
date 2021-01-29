@@ -1,6 +1,6 @@
 {
   "name": "@jood/v-colrow",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "main": "dist/v-colrow.common.js",
   "types": "dist/types/index.d.ts",
   "module": "src/index.ts",
