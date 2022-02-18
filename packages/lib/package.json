@@ -1,6 +1,6 @@
 {
   "name": "@jood/v-colrow",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "main": "dist/v-colrow.umd.js",
   "module": "dist/v-colrow.umd.js",
   "types": "dist/types/index.d.ts",
