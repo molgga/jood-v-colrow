@@ -4,8 +4,11 @@
       <div v-for="(item, index) in testState.list" :key="index" class="my-item">
         <jd-colrow-row v-for="(value, key) in item" :key="key" :groupKey="key" class="my-row">
           <template v-slot="{ state }">
-            <div class="test-state">groupKey: {{ key }}</div>
-            <div class="test-state">{{ state }}</div>
+            <div class="test-info">groupKey: {{ key }}</div>
+            <div class="test-info">
+              같은 groupKey 를 사용하는 곳의 높이를 맞춰준다.
+            </div>
+            <div class="test-info">{{ state }}</div>
             <div class="test-value">random text(hight change)<br />{{ value }}</div>
           </template>
         </jd-colrow-row>
@@ -77,7 +80,7 @@ export default defineComponent({
 }
 .my-item {
   flex: 1;
-  margin: 0 2px;
+  margin: 0 5px;
   border: 1px solid #000000;
   border-radius: 5px;
   .my-row {
@@ -89,7 +92,7 @@ export default defineComponent({
       border-top-width: 0;
     }
   }
-  .test-state {
+  .test-info {
     padding: 5px 10px;
   }
   .test-value {
