@@ -1,9 +1,17 @@
 {
   "name": "@jood/v-colrow",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "main": "dist/v-colrow.umd.js",
   "module": "dist/v-colrow.umd.js",
   "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/v-colrow.umd.js",
+      "require": "./dist/v-colrow.umd.js"
+    },
+    "./package.json": "./package.json"
+  },
   "publishConfig": {
     "registry": "https://registry.npmjs.org",
     "access": "public"
