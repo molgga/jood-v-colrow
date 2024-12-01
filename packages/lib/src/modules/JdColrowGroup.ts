@@ -2,11 +2,11 @@ import { Subject, Observable } from 'rxjs';
 import { RowElement, RowKey, GroupState, GroupOptions } from './types';
 
 export class JdColrowGroup {
-  protected key!: RowKey;
-  protected tick: any = null;
-  protected stateSubject = new Subject<GroupState>();
-  protected elList: RowElement[] = [];
-  protected lazyAggregate = 0;
+  private key!: RowKey;
+  private tick: any = null;
+  private stateSubject = new Subject<GroupState>();
+  private elList: RowElement[] = [];
+  private lazyAggregate = 0;
 
   get groupKey() {
     return this.key;

@@ -4,20 +4,25 @@ import { RowKey, RowElement, GroupDatasetKey, GroupOptions } from './types';
 import { JdColrowGroup } from './JdColrowGroup';
 
 export class JdColrowObserver {
-  protected groupMap!: Map<RowKey, JdColrowGroup>;
-  protected resizeObserver!: ResizeObserver;
-  protected mutationObserver!: MutationObserver;
-  protected intersectObserver!: IntersectionObserver;
-  protected elContainer!: HTMLElement;
-  protected aggregateWaitKeys: RowKey[] = [];
-  protected isIntersectInitial = false;
-  protected isIntersecting = true;
+  private groupMap!: Map<RowKey, JdColrowGroup>;
+  private resizeObserver!: ResizeObserver;
+  private mutationObserver!: MutationObserver;
+  private intersectObserver!: IntersectionObserver;
+  private elContainer!: HTMLElement;
+  private aggregateWaitKeys: RowKey[] = [];
+  private isIntersectInitial = false;
+  private isIntersecting = true;
+  private allowAggregateWitoutIntersect = false;
 
   constructor() {
     this.groupMap = new Map();
     this.resizeObserver = new ResizeObserver(this.onResizeObserved.bind(this));
     this.mutationObserver = new MutationObserver(this.onMutationObserved.bind(this));
     this.intersectObserver = new IntersectionObserver(this.onIntersectObserved.bind(this));
+  }
+
+  setAllowAggregateWitoutIntersect(allow: boolean) {
+    this.allowAggregateWitoutIntersect = allow;
   }
 
   groupOf(key: RowKey): JdColrowGroup | undefined {
@@ -66,15 +71,15 @@ export class JdColrowObserver {
       }
     }
     this.aggregateWaitKeys = keys;
-    if (this.isIntersectInitial && this.isIntersecting) {
+    if (this.allowAggregateWitoutIntersect || (this.isIntersectInitial && this.isIntersecting)) {
       this.flushAggregateWait();
     }
   }
 
-  onMutationObserved(records: MutationRecord[]) {
+  onMutationObserved() {
     const keys = Array.from(this.groupMap.keys());
     this.aggregateWaitKeys = keys;
-    if (this.isIntersectInitial && this.isIntersecting) {
+    if (this.allowAggregateWitoutIntersect || (this.isIntersectInitial && this.isIntersecting)) {
       this.flushAggregateWait();
     }
   }
@@ -99,7 +104,7 @@ export class JdColrowObserver {
     }
   }
 
-  protected flushAggregateWait() {
+  private flushAggregateWait() {
     if (this.aggregateWaitKeys && this.aggregateWaitKeys.length) {
       this.aggregateWaitKeys.forEach(key => this.aggregateRow(key));
       this.aggregateWaitKeys = [];
